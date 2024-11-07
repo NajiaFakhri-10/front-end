@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universities</title>
+</head>
+
+<body>
+    <h1>List of Universities</h1>
+    <table id="universities-table" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function fetchUniversities() {
+            try {
+                const response = await fetch('http://localhost:3000/api/universities');
+                const universities = await response.json();
+                const tableBody = document.querySelector('#universities-table tbody');
+
+                universities.forEach(university => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${university.id}</td><td>${university.name}</td>`;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching universities:', error);
+            }
+        }
+
+        // Call the function to fetch and display data
+        fetchUniversities();
+    </script>
+</body>
+
+</html>
